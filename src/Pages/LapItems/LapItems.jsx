@@ -12,6 +12,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 
 import { useState } from "react";
 const StyledModal = Modal.styled`
+  position:relative;
   width: 40rem;
   height: 20rem;
   display: flex;
@@ -143,10 +144,15 @@ const LapItems = () => {
                       <p>Resale:price:{item.price}</p>
                       <div className="flex gap-2">
                         <input type="text" />
-                        <input type="number" />
+                        <input type="tel" />
                       </div>
 
-                      <button onClick={toggleModal}>Close me</button>
+                      <button
+                        className="absolute top-5 right-5"
+                        onClick={toggleModal}
+                      >
+                        X
+                      </button>
                     </StyledModal>
 
                     <button className="btn bg-slate-300 p-2 rounded-lg">
