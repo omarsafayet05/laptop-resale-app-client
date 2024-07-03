@@ -5,9 +5,25 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 import { FaSquarePhone } from "react-icons/fa6";
 import { FcLike } from "react-icons/fc";
+import Swal from "sweetalert2";
+import Modal from "styled-react-modal";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
+
+import { useState } from "react";
+const StyledModal = Modal.styled`
+  width: 40rem;
+  height: 20rem;
+  display: flex;
+  flex-direction:column;
+  gap:2;
+  align-items: center;
+  justify-content: center;  background-color: white;`;
 
 const LapItems = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { brand } = useParams();
+  const { user } = useContext(AuthContext);
 
   //Below this also work and for learning purpose
   //   const location = window.location.pathname;
@@ -28,19 +44,24 @@ const LapItems = () => {
   const lapItems = items.filter((item) => item.Brand === brand);
   console.log(lapItems);
 
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
       <div className="min-h-screen">
         <h1 className="m-[8%] text-center text-slate-950 text-3xl text-bold">
           Laptops By Brand
         </h1>
+
         <div className="grid grid-cols-2">
           {lapItems.map((item, i) => (
             <div
               key={i}
-              className="flex flex-col w-full  gap-3 mb-3  rounded-md shadow-xl"
+              className="flex flex-col w-full  gap-2 mb-3  rounded-md shadow-xl"
             >
-              <div className="w-full  h-[60%]">
+              <div className="w-full">
                 <div className="flex px-5">
                   <p className="">
                     <span className="italic text-slate-600">Posted on</span>{" "}
@@ -56,7 +77,7 @@ const LapItems = () => {
                     <img
                       src={item.img}
                       alt=""
-                      className="w-full h-[80%] px-5 pt-2  object-cover aspect-auto"
+                      className="w-full h-96 px-5 pt-2  object-cover aspect-auto"
                     />
                   </PhotoView>
                 </PhotoProvider>
@@ -76,8 +97,8 @@ const LapItems = () => {
                     </p>
                   </div>
                 </div>
-                <div className="w-full px-1 mt-2 mb-2">
-                  <div className="flex justify-between">
+                <div className="w-full px-1 mt-2 mb-2 ">
+                  <div className="flex justify-between ">
                     <div>
                       <div>Seller:{item.sellerName}</div>{" "}
                       <div>Condition:{item.condition}</div>
@@ -94,7 +115,7 @@ const LapItems = () => {
                     </div>
                   </div>
                   <hr className="border-b-1 border-slate-300 " />
-                  <div className="mt-2 mb-2">
+                  <div className="mt-2 mb-2 h-[10%]">
                     {" "}
                     <span className="font-bold"> Description:</span>
                     {item.description}
@@ -105,6 +126,29 @@ const LapItems = () => {
                       <FcLike className=" text-2xl" />{" "}
                       <span className="font-semibold">Like</span>
                     </div>
+                    <button
+                      className="btn bg-[#149777] text-white p-2 rounded-lg"
+                      onClick={toggleModal}
+                    >
+                      Book now
+                    </button>
+                    <StyledModal
+                      isOpen={isOpen}
+                      onBackgroundClick={toggleModal}
+                      onEscapeKeydown={toggleModal}
+                    >
+                      <p>{user?.displayName}</p>
+                      <p>{user?.email}</p>
+                      <p>Product:{item.title}</p>
+                      <p>Resale:price:{item.price}</p>
+                      <div className="flex gap-2">
+                        <input type="text" />
+                        <input type="number" />
+                      </div>
+
+                      <button onClick={toggleModal}>Close me</button>
+                    </StyledModal>
+
                     <button className="btn bg-slate-300 p-2 rounded-lg">
                       Report to Items
                     </button>

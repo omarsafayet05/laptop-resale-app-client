@@ -104,7 +104,7 @@ const Home = () => {
 
       {/* .......................(large display)....................... */}
 
-      <div className="flex flex-row gap-2 justify-center m-3">
+      <div className="flex flex-row gap-2 justify-center mb-4">
         <div className=" min-h-64 bg-[#ffffff] rounded-md w-52 hidden lg:flex flex-0">
           <div className="mx-auto m-4">
             <h2 className="text-3xl text-slate-950">Categories</h2>

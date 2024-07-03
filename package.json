@@ -23,6 +23,7 @@
     "react-icons": "^5.2.1",
     "react-photo-view": "^1.2.6",
     "react-router-dom": "^6.23.1",
+    "styled-react-modal": "^3.1.1",
     "sweetalert2": "^11.11.1"
   },
   "devDependencies": {
